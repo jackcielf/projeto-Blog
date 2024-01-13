@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const connection = require("./database/db");
 
 // CONTROLLERS
-const categoriesController = require("./categories/CategoriesController");
-const articlesController = require("./articles/ArticlesController");
+const categoriesController = require("./controlles/CategoriesController");
+const articlesController = require("./controlles/ArticlesController");
 
 PORT = 8080;
 
