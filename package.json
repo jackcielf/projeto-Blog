@@ -1,0 +1,31 @@
+{
+  "name": "wanderwave",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakkiFx/projeto-Blog.git"
+  },
+  "keywords": [
+    "blog",
+    "WanderWave",
+    "@dev_jakkifx"
+  ],
+  "author": "@dev_jakkifx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakkiFx/projeto-Blog/issues"
+  },
+  "homepage": "https://github.com/JakkiFx/projeto-Blog#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mysql2": "^3.7.0",
+    "sequelize": "^6.35.2"
+  }
+}
