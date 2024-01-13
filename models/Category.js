@@ -14,4 +14,6 @@ const Category = connection.define(NAME_TABLE, {
   },
 });
 
+// Category.sync({ force: true });
+
 module.exports = Category;

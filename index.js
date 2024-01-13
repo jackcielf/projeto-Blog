@@ -7,6 +7,10 @@ const connection = require("./database/db");
 const categoriesController = require("./controlles/CategoriesController");
 const articlesController = require("./controlles/ArticlesController");
 
+// MODELS
+const Article = require('./models/Article');
+const Category = require('./models/Category');
+
 PORT = 8080;
 
 // VIEW ENGINE
