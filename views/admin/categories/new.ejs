@@ -8,13 +8,14 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="post">
+      <form action="/categories/save" method="post">
         <div class="mb-3">
           <label for="title" class="form-label">Titulo</label>
           <input
             type="text"
             class="form-control"
             id="title"
+            name="title"
             placeholder="Qual o titulo da sua categoria?"
           />
         </div>
@@ -24,6 +25,5 @@
     </div>
   </div>
 </div>
-<h1>ola Jack</h1>
 
 <%- include('../../partials/footer.ejs') %>
