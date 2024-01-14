@@ -1,0 +1,73 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Novo artigo</h2>
+    </div>
+
+    <div class="card-body">
+      <form action="/articles/save" method="post">
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <input
+            type="text"
+            class="form-control mb-3"
+            id="title"
+            name="title"
+            placeholder="Qual o título do seu artigo?"
+          />
+
+          <label for="body" class="form-label">Descrição</label>
+          <textarea
+            class="form-control"
+            placeholder="Escreva o artigo aqui..."
+            name="body"
+            id="body"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Criar artigo</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/public/assets/js/tinymce/tinymce.min.js"></script>
+
+<script
+  src="https://cdn.tiny.cloud/1/utcddlr496y31da7gd5g7qpam4zjfy93ctv1kush01q8d7vz/tinymce/6/tinymce.min.js"
+  referrerpolicy="origin"
+></script>
+
+<!-- Configurando o Tinymce -->
+<script>
+  tinymce.init({
+    selector: "#body",
+    plugins: [
+      "autocorrect",
+      "table",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "print",
+      "preview",
+      "advlist",
+      "autolink",
+      "link",
+      "hr",
+      "searchsplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "paste",
+      "emoticons",
+    ],
+  });
+</script>
+
+<%- include('../../partials/footer.ejs') %>
