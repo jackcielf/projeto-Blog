@@ -7,6 +7,7 @@ router.get("/admin/categories/new", (req, res) => {
   res.render("admin/categories/new");
 });
 
+// CREATE
 router.post("/categories/save", (req, res) => {
   var title = req.body.title;
 
@@ -22,6 +23,7 @@ router.post("/categories/save", (req, res) => {
   }
 });
 
+// READ
 router.get("/admin/categories", (req, res) => {
   Category.findAll().then((categories) => {
     res.render("admin/categories/index", {
@@ -30,6 +32,25 @@ router.get("/admin/categories", (req, res) => {
   });
 });
 
+// UPDATE
+router.post("/admin/categories/update", (req, res) => {
+  var id = req.body.id;
+  var title = req.body.title;
+
+  Category.update(
+    {
+      title: title,
+      slug: slugify(title),
+    },
+    {
+      where: { id: id },
+    }
+  ).then(() => {
+    res.redirect("/admin/categories");
+  });
+})
+
+// DELETE
 router.post("/categories/delete", (req, res) => {
   var id = req.body.id;
 
@@ -48,22 +69,22 @@ router.post("/categories/delete", (req, res) => {
   }
 });
 
-router.get('/admin/categories/edit/:id', (req, res) => {
+router.get("/admin/categories/edit/:id", (req, res) => {
   var id = req.params.id;
-
+  
   if (isNaN(id)) {
-    res.redirect('/admin/categories');
+    res.redirect("/admin/categories");
   }
-
+  
   Category.findByPk(id).then((category) => {
     if (category) {
-      res.render('admin/categories/edit', {
-        category: category
+      res.render("admin/categories/edit", {
+        category: category,
       });
     } else {
-      res.redirect('/admin/categories');
+      res.redirect("/admin/categories");
     }
-  })
+  });
 });
 
 module.exports = router;
