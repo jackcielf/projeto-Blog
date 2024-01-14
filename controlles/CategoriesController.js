@@ -48,7 +48,7 @@ router.post("/admin/categories/update", (req, res) => {
   ).then(() => {
     res.redirect("/admin/categories");
   });
-})
+});
 
 // DELETE
 router.post("/categories/delete", (req, res) => {
@@ -71,11 +71,11 @@ router.post("/categories/delete", (req, res) => {
 
 router.get("/admin/categories/edit/:id", (req, res) => {
   var id = req.params.id;
-  
+
   if (isNaN(id)) {
     res.redirect("/admin/categories");
   }
-  
+
   Category.findByPk(id).then((category) => {
     if (category) {
       res.render("admin/categories/edit", {

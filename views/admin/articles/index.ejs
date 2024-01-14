@@ -2,11 +2,11 @@
 <%- include('../../partials/navbar.ejs') %>
 
 <div class="container">
-  <h2>Categorias</h2>
+  <h2>Artigos</h2>
   <hr />
 
-  <a class="btn btn-primary mb-3" href="/admin/categories/new">
-    Criar nova categoria
+  <a class="btn btn-primary mb-3" href="/admin/articles/new">
+    Criar novo artigo
   </a>
 
   <table class="table table-bordered table-hover table-striped">
@@ -15,17 +15,21 @@
         <th>ID</th>
         <th>Título</th>
         <th>Slug</th>
+        <th>Corpo</th>
+        <th>categoriaID</th>
         <th>Ações</th>
       </tr>
     </thead>
 
     <tbody>
-      <% categories.forEach((category) => { %>
+      <% articles.forEach((article) => { %>
       <tr>
-        <th><%= category.id %></th>
-        <th><%= category.title %></th>
-        <th><%= category.slug %></th>
-        <th>
+        <td><%= article.id %></td>
+        <td><%= article.title %></td>
+        <td><%= article.slug %></td>
+        <td><%= article.body %></td>
+        <td><%= article.tbCategoryId %></td>
+        <td>
           <div class="dropdown">
             <button
               class="btn btn-primary dropdown-toggle"
@@ -40,21 +44,20 @@
             <div class="dropdown-menu p-2" aria-labelledby="select-action">
               <a
                 class="btn btn-warning w-100"
-                href="/admin/categories/edit/<%= category.id %>"
+                href="/admin/articles/edit/<%= article.id %>"
                 >Editar</a
               >
               <form
-                action="/categories/delete"
-                method="post"
-                style="display: inline"
+                action="/articles/delete"
+                medod="post"
                 onsubmit="confirmDelete(event, this)"
               >
-                <input type="hidden" name="id" value="<%= category.id %>" />
+                <input type="hidden" name="id" value="<%= article.id %>" />
                 <button class="btn btn-danger w-100 mt-2">Deletar</button>
               </form>
             </div>
           </div>
-        </th>
+        </td>
       </tr>
       <% }) %>
     </tbody>
@@ -67,7 +70,7 @@
   const confirmDelete = (e, form) => {
     e.preventDefault();
 
-    var decision = confirm("Deseja realmente deletar essa categoria?");
+    var decision = confirm("Deseja realmente deletar esse artigo?");
     decision ? form.submit() : "";
   };
 </script>
