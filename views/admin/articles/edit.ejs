@@ -1,20 +1,22 @@
-<%- include('../../partials/header.ejs') %> <%-
-include('../../partials/navbar.ejs') %>
+<%- include('../../partials/header.ejs') %> 
+<%- include('../../partials/navbar.ejs') %>
 
 <div class="container">
-  <div class="card">
+  <div class="card mb-5">
     <div class="card-header">
-      <h2>Novo artigo</h2>
+      <h2>Edição de artigo</h2>
     </div>
 
     <div class="card-body">
-      <form action="/articles/save" method="post">
+      <form action="/admin/articles/update" method="post">
         <div class="mb-3">
+          <input type="hidden" name="id" value="<%= article.id %>">
           <label for="title" class="form-label">Título</label>
           <input
             type="text"
             class="form-control"
             id="title"
+            value="<%= article.title %>"
             name="title"
             placeholder="Qual o título do seu artigo?"
           />
@@ -27,19 +29,22 @@ include('../../partials/navbar.ejs') %>
             placeholder="Escreva o artigo aqui..."
             name="body"
             id="body"
-          ></textarea>
+          ><%= article.body %></textarea>
         </div>
 
         <div class="mb-3">
           <label for="category" class="form-label">Categoria</label>
-          <select class="form-control" name="category" id="category">
-            <% categories.forEach(category => { %>
-            <option value="<%= category.id %>"><%= category.title %></option>
+          <select class="custom-select" name="category" id="category">
+            <% categories.forEach( (category) => { %>
+                <% if(category.id == article.tbCategoryId) { %>
+                    <option value="<%= category.id %>" selected><%= category.title %></option>
+                <% } else { %>
+                  <option value="<%= category.id %>"><%= category.title %></option>
+                <% } %>
             <% }) %>
-          </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Criar artigo</button>
+        <input type="submit" class="jk-button btn btn-primary mt-3" value="Atualizar" />
       </form>
     </div>
   </div>
