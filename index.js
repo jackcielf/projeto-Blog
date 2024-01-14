@@ -8,8 +8,8 @@ const categoriesController = require("./controlles/CategoriesController");
 const articlesController = require("./controlles/ArticlesController");
 
 // MODELS
-const Article = require('./models/Article');
-const Category = require('./models/Category');
+const Article = require("./models/Article");
+const Category = require("./models/Category");
 
 PORT = 8080;
 
@@ -34,7 +34,29 @@ connection
   });
 
 app.get("/", (req, res) => {
-  res.render("index");
+  Article.findAll({ order: [["id", "desc"]] }).then((articles) => {
+    res.render("index", {
+      articles: articles,
+    });
+  });
+});
+
+app.get("/:slug", (req, res) => {
+  var slug = req.params.slug;
+
+  Article.findOne({
+    where: {
+      slug: slug,
+    },
+  })
+    .then((article) => {
+      res.render("article-detail", {
+        article: article,
+      });
+    })
+    .catch((err) => {
+      res.redirect("/");
+    });
 });
 
 app.use("/", categoriesController);
