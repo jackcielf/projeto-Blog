@@ -1,5 +1,5 @@
-<%- include('../../partials/header.ejs') %>
-<%- include('../../partials/navbar.ejs') %>
+<%- include('../../partials/header.ejs') %> <%-
+include('../../partials/navbar.ejs') %>
 
 <div class="container">
   <div class="card">
@@ -13,12 +13,14 @@
           <label for="title" class="form-label">Título</label>
           <input
             type="text"
-            class="form-control mb-3"
+            class="form-control"
             id="title"
             name="title"
             placeholder="Qual o título do seu artigo?"
           />
+        </div>
 
+        <div class="mb-3">
           <label for="body" class="form-label">Descrição</label>
           <textarea
             class="form-control"
@@ -26,6 +28,15 @@
             name="body"
             id="body"
           ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="category" class="form-label">Categoria</label>
+          <select class="form-control" name="category" id="category">
+            <% categories.forEach(category => { %>
+            <option value="<%= category.id %>"><%= category.title %></option>
+            <% }) %>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Criar artigo</button>
@@ -45,7 +56,7 @@
 <script>
   tinymce.init({
     selector: "#body",
-    language: 'pt_BR',
+    language: "pt_BR",
     plugins: [
       "autocorrect",
       "table",
