@@ -10,6 +10,18 @@
     <div class="card-body">
       <form action="/admin/articles/update" method="post">
         <div class="mb-3">
+          <label for="category" class="form-label">Categoria</label>
+          <select class="custom-select" name="category" id="category">
+            <% categories.forEach( (category) => { %>
+                <% if(category.id == article.tbCategoryId) { %>
+                    <option value="<%= category.id %>" selected><%= category.title %></option>
+                <% } else { %>
+                  <option value="<%= category.id %>"><%= category.title %></option>
+                <% } %>
+            <% }) %>
+        </div>
+
+        <div class="mb-3">
           <input type="hidden" name="id" value="<%= article.id %>">
           <label for="title" class="form-label">Título</label>
           <input
@@ -30,18 +42,6 @@
             name="body"
             id="body"
           ><%= article.body %></textarea>
-        </div>
-
-        <div class="mb-3">
-          <label for="category" class="form-label">Categoria</label>
-          <select class="custom-select" name="category" id="category">
-            <% categories.forEach( (category) => { %>
-                <% if(category.id == article.tbCategoryId) { %>
-                    <option value="<%= category.id %>" selected><%= category.title %></option>
-                <% } else { %>
-                  <option value="<%= category.id %>"><%= category.title %></option>
-                <% } %>
-            <% }) %>
         </div>
 
         <input type="submit" class="jk-button btn btn-primary mt-3" value="Atualizar" />
