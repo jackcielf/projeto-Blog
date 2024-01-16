@@ -10,6 +10,15 @@ include('../../partials/navbar.ejs') %>
     <div class="card-body">
       <form action="/articles/save" method="post">
         <div class="mb-3">
+          <label for="category" class="form-label">Categoria</label>
+          <select class="form-control" name="category" id="category">
+            <% categories.forEach(category => { %>
+            <option value="<%= category.id %>"><%= category.title %></option>
+            <% }) %>
+          </select>
+        </div>
+        
+        <div class="mb-3">
           <label for="title" class="form-label">Título</label>
           <input
             type="text"
@@ -30,16 +39,7 @@ include('../../partials/navbar.ejs') %>
           ></textarea>
         </div>
 
-        <div class="mb-3">
-          <label for="category" class="form-label">Categoria</label>
-          <select class="form-control" name="category" id="category">
-            <% categories.forEach(category => { %>
-            <option value="<%= category.id %>"><%= category.title %></option>
-            <% }) %>
-          </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Criar artigo</button>
+        <button type="submit" class="btn btn-primary jk-button">Criar artigo</button>
       </form>
     </div>
   </div>

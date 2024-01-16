@@ -33,10 +33,17 @@ connection
     console.log("Connection to database: FAILED\n" + err);
   });
 
+// ROUTES
+app.use("/", categoriesController);
+app.use("/", articlesController);
+
 app.get("/", (req, res) => {
   Article.findAll({ order: [["id", "desc"]] }).then((articles) => {
-    res.render("index", {
-      articles: articles,
+    Category.findAll().then((categories) => {
+      res.render("index", {
+        articles: articles,
+        categories: categories,
+      });
     });
   });
 });
@@ -50,8 +57,11 @@ app.get("/:slug", (req, res) => {
     },
   })
     .then((article) => {
-      res.render("article-detail", {
-        article: article,
+      Category.findAll().then((categories) => {
+        res.render("article-detail", {
+          article: article,
+          categories: categories,
+        });
       });
     })
     .catch((err) => {
@@ -59,8 +69,43 @@ app.get("/:slug", (req, res) => {
     });
 });
 
-app.use("/", categoriesController);
-app.use("/", articlesController);
+app.get("/category/:slug", (req, res) => {
+  var slug = req.params.slug;
+
+  Category.findOne({
+    row: true,
+    where: {
+      slug: slug,
+    },
+  })
+    .then((category) => {
+      if (category) {
+        Category.findAll().then((categories) => {
+          Article.findAll().then((articles) => {
+            if (categories && articles) {
+              articles.forEach((article) => {
+                if (
+                  article.dataValues.tbCategoryId === category.dataValues.id
+                ) {
+                  categories.unshift([article]);
+                }
+              });
+
+              res.render("index", {
+                articles: categories[0],
+                categories: categories,
+              });
+            }
+          });
+        });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/");
+    });
+});
 
 // RUN SERVER
 app.listen(PORT, () => {
