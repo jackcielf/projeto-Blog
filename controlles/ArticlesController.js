@@ -35,7 +35,7 @@ router.post("/articles/save", (req, res) => {
 // READ
 router.get("/admin/articles", (req, res) => {
   Article.findAll({
-    order: [["id", "asc"]]
+    order: [["id", "asc"]],
   }).then((articles) => {
     res.render("admin/articles/index", {
       articles: articles,
@@ -55,7 +55,7 @@ router.post("/admin/articles/update", (req, res) => {
       title: title,
       slug: slugify(title),
       body: body,
-      tbCategoryId: category
+      tbCategoryId: category,
     },
     {
       where: { id: id },
@@ -102,6 +102,41 @@ router.get("/admin/articles/edit/:id", (req, res) => {
     } else {
       res.redirect("/admin/articles");
     }
+  });
+});
+
+router.get("/articles/page/:num", (req, res) => {
+  var page = req.params.num;
+  var offset = 0;
+
+  if (isNaN(page) || page === 1) {
+    var offset = 0;
+  } else {
+    offset = parseInt(page) * 4;
+  }
+
+  Article.findAndCountAll({
+    limit: 4,
+    offset: offset,
+  }).then((articles) => {
+    var next;
+    if (offset + 4 > articles.count) {
+      next = false;
+    } else {
+      next = true;
+    }
+
+    var result = {
+      next: next,
+      articles: articles,
+    };
+
+    Category.findAll().then((categories) => {
+      res.render('admin/articles/page', {
+        result: result,
+        categories: categories
+      })
+    });
   });
 });
 
