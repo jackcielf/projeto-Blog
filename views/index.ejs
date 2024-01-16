@@ -10,7 +10,6 @@
     <a class="btn btn-primary" href="#">Leia mais</a>
   </div>
 
-  <% if (!articles.tbCategoryId) { %>
   <% articles.forEach(article => { %>
     <div class="card mb-3">
       <div class="card-header">
@@ -21,12 +20,6 @@
       </div>
     </div>
   <% }) %>
-  <% } else { %>
-    <div class="alert">
-      <p>Sem artigos no momento</p>
-      <a href="/admin/articles/new">Criar meu próprio artigo</a>
-    </div>
-  <% } %>
 </div>
 
 <%- include('./partials/footer.ejs') %>
