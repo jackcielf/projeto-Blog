@@ -12,6 +12,14 @@
       </div>
     </div>
   <% }) %>
+
+  <div class="row">
+    <div class="col col-row-12">
+      <% if (result.next) { %>
+        <a class="float-right" href="articles/page/<%= result.page + 1 %>">Next</a>
+        <% } %>
+    </div>
+  </div>
 </div>
 
 <%- include('../../partials/footer.ejs') %>

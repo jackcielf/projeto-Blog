@@ -38,7 +38,7 @@ app.use("/", categoriesController);
 app.use("/", articlesController);
 
 app.get("/", (req, res) => {
-  Article.findAll({ order: [["id", "desc"]] }).then((articles) => {
+  Article.findAll({ order: [["id", "desc"]], limit: 4 }).then((articles) => {
     Category.findAll().then((categories) => {
       res.render("index", {
         articles: articles,
@@ -109,5 +109,5 @@ app.get("/category/:slug", (req, res) => {
 
 // RUN SERVER
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running in: http://localhost:${PORT}`);
 });
